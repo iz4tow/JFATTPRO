@@ -68,18 +68,19 @@ def creazione_nopostel():
 	
 	for riga in file:
 		if contariga==1:
+			controllo_riga=riga[66:74]
 			nome_file=riga[66:74]+".txt"
 			
 			#print (contariga)
 			
-			if len(nome_file)>3 and nome_file.find(" ")==-1:
-				print (destinazione+nome_file.replace("\n",""))
+			#if len(nome_file)>3 and nome_file.find(" ")!=-1:
 				#CONTROLLO FATTURE CON PIU PAGINE
-				if nome_precedente!=nome_file:#NUOVA
-					out=open(destinazione+nome_file.replace("\n",""),"w")
-				else:#CONTINUA LA PRECEDENTE
-					out=open(destinazione+nome_file.replace("\n",""),"a")
-				aperto=1
+			if nome_precedente==nome_file or nome_file.find(" ")!=-1:#NUOVA
+				print ("appendi")
+				out=open(destinazione+nome_precedente.replace("\n",""),"a")
+			else:#CONTINUA LA PRECEDENTE
+				out=open(destinazione+nome_file.replace("\n",""),"w")
+			aperto=1
 		contariga=contariga+1
 		if aperto==1:
 			out.write(riga)
