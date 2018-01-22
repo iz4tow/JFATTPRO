@@ -83,7 +83,30 @@ def creazione_nopostel():
 			aperto=1
 		contariga=contariga+1
 		if aperto==1:
-			out.write(riga)
+			inserisci=riga
+			inserisci=inserisci.replace("2A          T","")
+			inserisci=inserisci.replace("2A          C","")
+			inserisci=inserisci.replace("2A          S","")
+			inserisci=inserisci.replace("2A          F","")
+			inserisci=inserisci.replace("21          T","")
+			inserisci=inserisci.replace("21          C","")
+			inserisci=inserisci.replace("21          S","")
+			inserisci=inserisci.replace("21          F","")
+			inserisci=inserisci.replace("22          T","")
+			inserisci=inserisci.replace("22          C","")
+			inserisci=inserisci.replace("22          S","")
+			inserisci=inserisci.replace("22          F","")
+			inserisci=inserisci.replace("31          T","")
+			inserisci=inserisci.replace("31          C","")
+			inserisci=inserisci.replace("31          S","")
+			inserisci=inserisci.replace("31          F","")
+			inserisci=inserisci.replace("4M          T","")
+			inserisci=inserisci.replace("4M          C","")
+			inserisci=inserisci.replace("4M          S","")
+			inserisci=inserisci.replace("4M          F","")
+			inserisci=inserisci.strip()
+			inserisci=inserisci+"\n"
+			out.write(inserisci)
 		if riga.find("FCBUNIX FATTURE-MELCHIONI")==1:
 			contariga=1
 			aperto=0
