@@ -60,26 +60,30 @@ def retr_file():
 ####################################################FINE FTP############################################
 ########################################################################################################
 
+
+########################################################################################################
+####################################################STAMPA NOPOSTEL#####################################
+########################################################################################################
+
 def creazione_nopostel():
 	file = open(nopostel, "r") 
 	contariga=1
 	aperto=0
 	nome_precedente=""
 	
+	destinazione_nopostel=destinazione+"NOPOSTEL\\"
+	
 	for riga in file:
 		if contariga==1:
 			controllo_riga=riga[66:74]
 			nome_file=riga[66:74]+".txt"
 			
-			#print (contariga)
-			
-			#if len(nome_file)>3 and nome_file.find(" ")!=-1:
-				#CONTROLLO FATTURE CON PIU PAGINE
+
 			if nome_precedente==nome_file or nome_file.find(" ")!=-1:#NUOVA
 				print ("appendi")
-				out=open(destinazione+nome_precedente.replace("\n",""),"a")
+				out=open(destinazione_nopostel+nome_precedente.replace("\n",""),"a")
 			else:#CONTINUA LA PRECEDENTE
-				out=open(destinazione+nome_file.replace("\n",""),"w")
+				out=open(destinazione_nopostel+nome_file.replace("\n",""),"w")
 			aperto=1
 		contariga=contariga+1
 		if aperto==1:
@@ -104,16 +108,81 @@ def creazione_nopostel():
 			inserisci=inserisci.replace("4M          C","")
 			inserisci=inserisci.replace("4M          S","")
 			inserisci=inserisci.replace("4M          F","")
-			inserisci=inserisci.strip()
+			inserisci=inserisci.rstrip()
 			inserisci=inserisci+"\n"
 			out.write(inserisci)
 		if riga.find("FCBUNIX FATTURE-MELCHIONI")==1:
 			contariga=1
 			aperto=0
 			nome_precedente=nome_file
-			#nome_file.close()
+			out.close()
+########################################################################################################
+####################################################FINE STAMPA NOPOSTEL################################
+########################################################################################################
+
+
+
+########################################################################################################
+####################################################STAMPA POSTEL#######################################
+########################################################################################################
+
+def creazione_postel():
+	file = open(postel, "r") 
+	contariga=1
+	aperto=0
+	nome_precedente=""
+	
+	destinazione_nopostel=destinazione+"POSTEL\\"
+	
+	for riga in file:
+		if contariga==1:
+			controllo_riga=riga[66:74]
+			nome_file=riga[66:74]+".txt"
+			
+
+			if nome_precedente==nome_file or nome_file.find(" ")!=-1:#NUOVA
+				print ("appendi")
+				out=open(destinazione_nopostel+nome_precedente.replace("\n",""),"a")
+			else:#CONTINUA LA PRECEDENTE
+				out=open(destinazione_nopostel+nome_file.replace("\n",""),"w")
+			aperto=1
+		contariga=contariga+1
+		if aperto==1:
+			inserisci=riga
+			inserisci=inserisci.replace("2A          T","")
+			inserisci=inserisci.replace("2A          C","")
+			inserisci=inserisci.replace("2A          S","")
+			inserisci=inserisci.replace("2A          F","")
+			inserisci=inserisci.replace("21          T","")
+			inserisci=inserisci.replace("21          C","")
+			inserisci=inserisci.replace("21          S","")
+			inserisci=inserisci.replace("21          F","")
+			inserisci=inserisci.replace("22          T","")
+			inserisci=inserisci.replace("22          C","")
+			inserisci=inserisci.replace("22          S","")
+			inserisci=inserisci.replace("22          F","")
+			inserisci=inserisci.replace("31          T","")
+			inserisci=inserisci.replace("31          C","")
+			inserisci=inserisci.replace("31          S","")
+			inserisci=inserisci.replace("31          F","")
+			inserisci=inserisci.replace("4M          T","")
+			inserisci=inserisci.replace("4M          C","")
+			inserisci=inserisci.replace("4M          S","")
+			inserisci=inserisci.replace("4M          F","")
+			inserisci=inserisci.rstrip()
+			inserisci=inserisci+"\n"
+			out.write(inserisci)
+		if riga.find("FCBUNIX FATTURE-MELCHIONI")==1:
+			contariga=1
+			aperto=0
+			nome_precedente=nome_file
+			out.close()
+########################################################################################################
+####################################################FINE STAMPA POSTEL##################################
+########################################################################################################
 
 
 retr_file()
 creazione_nopostel()
+creazione_postel()
 
