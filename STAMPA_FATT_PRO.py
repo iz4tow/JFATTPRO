@@ -1,5 +1,7 @@
 import time
 from ftplib import FTP
+import shutil
+import os
 
 
 
@@ -71,6 +73,12 @@ def creazione_nopostel():
 	aperto=0
 	nome_precedente=""
 	
+	#CREAZIONE CARTELLA OUT
+	try:#SE ESISTE SALTO LA CREAZIONE
+		os.stat(destinazione+"NOPOSTEL")
+	except:
+		os.mkdir(destinazione+"NOPOSTEL") 
+	
 	destinazione_nopostel=destinazione+"NOPOSTEL\\"
 	
 	for riga in file:
@@ -132,6 +140,12 @@ def creazione_postel():
 	aperto=0
 	nome_precedente=""
 	
+	#CREAZIONE CARTELLA OUT
+	try:#SE ESISTE SALTO LA CREAZIONE
+		os.stat(destinazione+"POSTEL")
+	except:
+		os.mkdir(destinazione+"POSTEL")
+	
 	destinazione_nopostel=destinazione+"POSTEL\\"
 	
 	for riga in file:
@@ -181,8 +195,35 @@ def creazione_postel():
 ####################################################FINE STAMPA POSTEL##################################
 ########################################################################################################
 
+########################################################################################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
+####################################################MAIN################################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
+########################################################################################################
 
+
+#CANCELLO VECCHI FILES
+try:
+	os.remove(nopostel)
+	os.remove(postel)
+	shutil.rmtree(destinazione)
+	shutil.rmtree(destinazione)
+except:
+	print ("CARTELLA PULITA")
+#CREAZIONE CARTELLA OUT
+os.mkdir(destinazione) 
 retr_file()
 creazione_nopostel()
 creazione_postel()
+try:
+	os.remove(nopostel)
+	os.remove(postel)
+except:
+	print ("CARTELLA PULITA")
 
